@@ -1,11 +1,11 @@
 #include "LoadResult.h"
 
-LoadResult::LoadResult(const std::string& body, int status) : body(body), status(status)
+LoadResult::LoadResult(std::shared_ptr<std::string> body, int status) : body(body), status(status)
 {
 
 }
 
-std::string LoadResult::getBody() const
+std::shared_ptr<std::string> LoadResult::getBody() const
 {
     return body;
 }

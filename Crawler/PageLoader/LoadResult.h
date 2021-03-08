@@ -2,6 +2,7 @@
 #define LOAD_RESULT_H
 
 #include <string>
+#include <memory>
 
 class LoadResult
 {
@@ -9,7 +10,7 @@ private:
     /**
      * Stores the response body 
      */
-    std::string body;
+    std::shared_ptr<std::string> body;
     
     /**
      * Stores the response status
@@ -17,8 +18,8 @@ private:
     long status;
 
 public:
-    LoadResult(const std::string& body, int status);
-    std::string getBody() const;
+    LoadResult(std::shared_ptr<std::string> body, int status);
+    std::shared_ptr<std::string> getBody() const;
     long getStatus() const;
 };
 
