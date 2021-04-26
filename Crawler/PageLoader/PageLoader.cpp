@@ -31,8 +31,9 @@ LoadResult PageLoader::load(const std::string& url)
         curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, getData);
         curl_easy_setopt(curl, CURLOPT_WRITEDATA, (void*)contents);
         curl_easy_setopt(curl, CURLOPT_FOLLOWLOCATION, 1);
+        curl_easy_setopt(curl, CURLOPT_MAXREDIRS, 3);
 
-        // connect to the url and download its' contents 
+        // connect to the url and download its' contents ы
         CURLcode result = curl_easy_perform(curl);
 
         if(result != CURLE_OK)
