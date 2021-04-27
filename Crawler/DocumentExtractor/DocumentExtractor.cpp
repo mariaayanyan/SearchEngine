@@ -3,7 +3,7 @@
 DocumentInfo DocumentExtractor::extract(const HtmlDocument& doc) const
 {
     std::string text, title, description;
-    doc.visitElements([&text, &title, &description](HtmlElement elem)
+    doc.visitElements([&text, &title, &description](const HtmlElement& elem)
     {
         if(!elem.isTextTag())
             return;
