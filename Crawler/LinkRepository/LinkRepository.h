@@ -6,20 +6,18 @@
 #define LINK_REPOSITORY
 
 #include "LinkEntry.h"
+#include "LinkStatus.h"
 
 #include <vector>
-#include <map>
 
 class LinkRepository
 {
     private:
-        /**
-         * Maps id to link entry
-         */
-        std::map<int, LinkEntry> source;
+        std::vector<LinkEntry> source;
     public:
-        std::vector<LinkEntry> getAll();
-        LinkEntry getById(int id);
+        std::vector<LinkEntry> getAll() const;
+        std::vector<LinkEntry> getById(int id, LinkStatus status, int count) const;
+        std::vector<LinkEntry> getByUrl(const std::string& url) const;
 
         /**
          * Updates source with a new entry

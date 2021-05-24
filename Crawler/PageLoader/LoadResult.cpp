@@ -7,10 +7,10 @@ LoadResult::LoadResult(std::shared_ptr<std::string> body, int status) : body(bod
 
 std::shared_ptr<std::string> LoadResult::getBody() const
 {
-    return body;
+    return this->body;
 }
 
 long LoadResult::getStatus() const
 {
-    return status;  
+    return this->status;  
 }

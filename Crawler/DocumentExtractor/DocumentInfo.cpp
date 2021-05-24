@@ -9,13 +9,13 @@ DocumentInfo::DocumentInfo(const std::string& text, const std::string& title, co
 
 std::string DocumentInfo::getText() const
 {
-    return text;
+    return this->text;
 }
 std::string DocumentInfo::getTitle() const
 {
-    return title;
+    return this->title;
 }
 std::string DocumentInfo::getDescription() const
 {
-    return description;
+    return this->description;
 }
