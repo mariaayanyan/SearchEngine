@@ -29,7 +29,7 @@ bool HtmlElement::isTitleTag() const
 
 bool HtmlElement::isDescriptionTag() const
 {
-    return node->v.element.tag == GUMBO_TAG_DESC;
+    return node->v.element.tag == GUMBO_TAG_META;
 }
 
 std::string HtmlElement::getAttribute(const std::string& name) const

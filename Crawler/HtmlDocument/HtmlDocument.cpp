@@ -7,18 +7,18 @@ HtmlDocument::HtmlDocument(const std::string& url) : url(url), output(nullptr)
 
 HtmlDocument::~HtmlDocument()
 {
-    if(output)
-        gumbo_destroy_output(&kGumboDefaultOptions, output);
+    if(this->output)
+        gumbo_destroy_output(&kGumboDefaultOptions, this->output);
 }
 
 bool HtmlDocument::parse()
 {
-    output = gumbo_parse(url.c_str());
+    this->output = gumbo_parse(this->url.c_str());
 }
 
 void HtmlDocument::visitElements(std::function<void(const HtmlElement&)> visitor) const
 {
-    HtmlNode root(output->root);
+    HtmlNode root(this->output->root);
     visitElement(root, visitor);
 }
 
