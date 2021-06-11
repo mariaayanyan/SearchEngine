@@ -4,7 +4,9 @@
 #include <string>   
 #include <functional>
 #include <bsoncxx/json.hpp>
+#include <bsoncxx/types.hpp>
 #include <mongocxx/client.hpp>
+#include <mongocxx/collection.hpp>
 #include <mongocxx/stdx.hpp>
 #include <mongocxx/uri.hpp>
 #include <mongocxx/instance.hpp>
@@ -19,31 +21,45 @@ private:
     mongocxx::client client;
     mongocxx::database db;
     mongocxx::collection collection;
-    mongocxx::instance instance;
+    
 public:
-    MongoDbHandler(const std::string& db, const std::string& collection, const std::string& uri = "mongodb://0.0.0.0.27017");
+    static mongocxx::instance instance;
 
-    /**
-     * attempts to insert a new item into the database,
-     * returns the inserted id on success, an empty string otherwise
-     */
-    template <typename T>
-    std::string addItemToDb(const T& item, std::function<bsoncxx::document::value(const bsoncxx::builder::stream::document&, const T&)> function);
-    
-    /**
-     * attempts to update an item from the database,
-     * returns the upserted id on success, an empty string otherwise
-     */
-    template <typename T>
-    std::string updateItem(const T& item, std::function<bsoncxx::document::value(const bsoncxx::builder::stream::document&, const T&)> function);
-    
-    /**
-     * attempts to remoeve an item from the database,
-     * returns deleted count
-     */
-    template <typename T>
-    int removeItemFromDb(const T& item);
+    MongoDbHandler(const std::string& db, const std::string& collection, const std::string& uri = "mongodb://0.0.0.0:27017") :
+                                uri(mongocxx::uri(uri.c_str())), client(mongocxx::client(this->uri)), 
+                                db(this->client[db]), collection(this->db[collection])
+    {
 
-};
+    }
+
+    template <typename T>
+    void addItemToDb(const T& item, std::function<bsoncxx::document::value(const T&)> function)
+    {
+        bsoncxx::document::value docToAdd = function(item);
+        collection.insert_one(docToAdd.view());
+    }
+
+    
+    template <typename T>
+    void updateItems(const T& item, std::function<bsoncxx::document::value(const T&)> query_function, 
+                                        std::function<bsoncxx::document::value(const T&)> update_function)
+    {
+        //bsoncxx::document::value queryDoc = builder << "_id" << documentId << bsoncxx::builder::stream::finalize;
+        bsoncxx::document::value queryDoc = query_function(item);
+        bsoncxx::document::value updateDoc = update_function(item);
+        
+        collection.update_many(queryDoc.view(), updateDoc.view());
+    }
+
+    template <typename T>
+    void removeItemsFromDb(const T& item, std::function<bsoncxx::document::value(const T&)> query_function)    
+    {
+        bsoncxx::document::value queryDoc = query_function(item);
+        collection.delete_many(queryDoc.view());
+    }
+
+};  
+
+mongocxx::instance MongoDbHandler::instance{};
 
 #endif
