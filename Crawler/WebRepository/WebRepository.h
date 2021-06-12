@@ -2,17 +2,17 @@
 #define WEB_REPOSITORY
 
 #include "Website.h"
+#include "../MongoDbHandler/MongoDbHandler.h"
 
 #include <vector>
 
 class WebRepository
 {
 private:
-    std::vector<Website> source;
-
+    MongoDbHandler handler;
 public:
-
-    std::vector<Website> getAll() const;
+    WebRepository();
+    std::vector<Website> getAll();
     void save(const Website& website);
 };
 

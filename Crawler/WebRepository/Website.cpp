@@ -1,14 +1,10 @@
 #include "Website.h"
 
-Website::Website(const std::string& domain, const std::string& homepage, std::time_t time, int id = 0) :
-                    domain(domain), homepage(homepage), updated(time), id(id)
+Website::Website(const std::string& domain, const std::string& homepage, std::time_t time) :
+                    domain(domain), homepage(homepage), updated(time)
 {
     
 }   
-int Website::getId() const
-{
-    return this->id;
-}
 
 std::string Website::getDomain() const
 {

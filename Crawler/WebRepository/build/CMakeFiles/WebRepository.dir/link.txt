@@ -1,0 +1,1 @@
+/usr/bin/c++ -fPIC   -shared -Wl,-soname,libWebRepository.so -o libWebRepository.so CMakeFiles/WebRepository.dir/WebRepository.cpp.o CMakeFiles/WebRepository.dir/Website.cpp.o 
