@@ -21,7 +21,7 @@ void WebRepository::save(const Website& website)
         bsoncxx::document::value updateDoc = builder << 
         "$set" << bsoncxx::builder::stream::open_document << "domain" << website.getDomain() << bsoncxx::builder::stream::close_document << 
         "$set" << bsoncxx::builder::stream::open_document << "homepage" << website.getHomepage() << bsoncxx::builder::stream::close_document << 
-        "$set" << bsoncxx::builder::stream::open_document << "last crawl time" << website.getLastCrawlTime() << bsoncxx::builder::stream::close_document <<         
+        "$set" << bsoncxx::builder::stream::open_document << "updated" << website.getLastCrawlTime() << bsoncxx::builder::stream::close_document <<         
         bsoncxx::builder::stream::finalize;
 
         return updateDoc;
@@ -48,9 +48,15 @@ std::vector<Website> WebRepository::getAll()
 {
     std::vector<Website> websites;
     mongocxx::cursor cursor = handler.collection.find({});
-    
+
     for(auto doc : cursor)
-        websites.emplace_back(doc["domain"], doc["homepage"], doc["last crawl time"]);
+    {
+        std::string domain = doc["domain"].get_utf8().value.to_string();
+        std::string homepage = doc["homepage"].get_utf8().value.to_string();
+        time_t updated = doc["updated"].get_int64().value;
+
+        websites.emplace_back(domain, homepage, updated);
+    }
 
     return websites;    
 }

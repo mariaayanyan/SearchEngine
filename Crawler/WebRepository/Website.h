@@ -10,11 +10,11 @@ class Website
 private:
     std::string domain;
     std::string homepage;
-    std::time_t updated;
+    time_t updated;
 
 public:
     Website() = default;
-    Website(const std::string& domain, const std::string& homepage, std::time_t time = 0);
+    Website(const std::string& domain, const std::string& homepage, time_t time = 0);
     
     std::string getDomain() const;
     std::string getHomepage() const;

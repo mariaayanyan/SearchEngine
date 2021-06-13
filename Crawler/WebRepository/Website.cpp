@@ -1,6 +1,6 @@
 #include "Website.h"
 
-Website::Website(const std::string& domain, const std::string& homepage, std::time_t time) :
+Website::Website(const std::string& domain, const std::string& homepage, time_t time) :
                     domain(domain), homepage(homepage), updated(time)
 {
     
