@@ -3,7 +3,7 @@ project(MongoDbHandler)
 
 set(CMAKE_CXX_STANDARD 17)
 
-#add_executable(MongoDbHandler test.cpp)
+add_executable(MongoDbHandler test.cpp)
 
 find_package(libmongocxx REQUIRED)
 find_package(libbsoncxx REQUIRED)

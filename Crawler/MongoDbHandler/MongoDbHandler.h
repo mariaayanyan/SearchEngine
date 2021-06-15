@@ -11,17 +11,16 @@
 #include <mongocxx/uri.hpp>
 #include <mongocxx/instance.hpp>
 #include <bsoncxx/builder/stream/helpers.hpp>
-#include <bsoncxx/builder/stream/document.hpp>
+#include <bsoncxx/builder/stream/document.hpp>  
 #include <bsoncxx/builder/stream/array.hpp>
 
 class MongoDbHandler
 {
 private:
-
-public:
-
     mongocxx::uri uri;
     mongocxx::client client;
+
+public:
     mongocxx::database db;
     mongocxx::collection collection;
     static mongocxx::instance instance;
