@@ -10,7 +10,7 @@ class Website
 private:
     std::string domain;
     std::string homepage;
-    time_t updated;
+    time_t lastUpdated;
 
 public:
     Website() = default;

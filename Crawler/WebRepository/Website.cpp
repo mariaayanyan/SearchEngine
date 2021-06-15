@@ -1,7 +1,7 @@
 #include "Website.h"
 
-Website::Website(const std::string& domain, const std::string& homepage, time_t time) :
-                    domain(domain), homepage(homepage), updated(time)
+Website::Website(const std::string& domain, const std::string& homepage, time_t lastUpdated) :
+                    domain(domain), homepage(homepage), lastUpdated(lastUpdated)
 {
     
 }   
@@ -17,5 +17,5 @@ std::string Website::getHomepage() const
 }
 std::time_t Website::getLastCrawlTime() const
 {
-    return this->updated;
+    return this->lastUpdated;
 }

@@ -21,7 +21,7 @@ void WebRepository::save(const Website& website)
         bsoncxx::document::value updateDoc = builder << 
         "$set" << bsoncxx::builder::stream::open_document << "domain" << website.getDomain() << bsoncxx::builder::stream::close_document << 
         "$set" << bsoncxx::builder::stream::open_document << "homepage" << website.getHomepage() << bsoncxx::builder::stream::close_document << 
-        "$set" << bsoncxx::builder::stream::open_document << "updated" << website.getLastCrawlTime() << bsoncxx::builder::stream::close_document <<         
+        "$set" << bsoncxx::builder::stream::open_document << "lastUpdated" << website.getLastCrawlTime() << bsoncxx::builder::stream::close_document <<         
         bsoncxx::builder::stream::finalize;
 
         return updateDoc;
@@ -33,7 +33,7 @@ void WebRepository::save(const Website& website)
         bsoncxx::document::value insertDoc = builder << 
         "domain" << website.getDomain() << 
         "homepage" << website.getHomepage() << 
-        "last crawl time" << website.getLastCrawlTime() << 
+        "lastUpdated" << website.getLastCrawlTime() << 
         bsoncxx::builder::stream::finalize;
 
         return insertDoc;
@@ -53,7 +53,7 @@ std::vector<Website> WebRepository::getAll()
     {
         std::string domain = doc["domain"].get_utf8().value.to_string();
         std::string homepage = doc["homepage"].get_utf8().value.to_string();
-        time_t updated = doc["updated"].get_int64().value;
+        time_t updated = doc["lastUpdated"].get_int64().value;
 
         websites.emplace_back(domain, homepage, updated);
     }
