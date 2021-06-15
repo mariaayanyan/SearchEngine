@@ -1,6 +1,6 @@
 #include "HtmlDocument.h"
 
-HtmlDocument::HtmlDocument(const std::string& url) : url(url), output(nullptr)
+HtmlDocument::HtmlDocument(const std::string& html) : html(html), output(nullptr)
 {
 
 }
@@ -11,9 +11,14 @@ HtmlDocument::~HtmlDocument()
         gumbo_destroy_output(&kGumboDefaultOptions, this->output);
 }
 
+std::string HtmlDocument::getHtml() const 
+{
+    return this->html;
+}
+
 bool HtmlDocument::parse()
 {
-    this->output = gumbo_parse(this->url.c_str());
+    this->output = gumbo_parse(this->html.c_str());
 }
 
 void HtmlDocument::visitElements(std::function<void(const HtmlElement&)> visitor) const

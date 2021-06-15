@@ -15,12 +15,17 @@ class HtmlDocument
 {
     private:
         GumboOutput* output;
-        std::string url;
+        std::string html;
+
         void visitElement(const HtmlNode& node, std::function<void(const HtmlElement&)> visitor) const; 
     public:
-        HtmlDocument(const std::string& url);
+        HtmlDocument(const std::string& html);
+        
         bool parse();
         void visitElements(std::function<void(const HtmlElement&)> visitor) const; 
+        
+        std::string getHtml() const;
+        
         ~HtmlDocument();
 };
 
