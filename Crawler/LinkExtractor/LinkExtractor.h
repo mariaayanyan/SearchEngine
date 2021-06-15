@@ -3,13 +3,13 @@
 
 #include "../HtmlDocument/HtmlDocument.h"
 
-#include <set>
+#include <vector>
 #include <string>
 
 class LinkExtractor
 {
     public:
-        std::set<std::string> extract(const HtmlDocument& doc);
+        std::vector<std::string> extract(const HtmlDocument& doc, const std::string& effectiveUrl);
 };
 
 #endif
