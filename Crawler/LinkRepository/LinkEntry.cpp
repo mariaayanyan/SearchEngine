@@ -1,14 +1,8 @@
 #include "LinkEntry.h"
 
-LinkEntry::LinkEntry(const std::string& url, LinkStatus status, const std::time_t& lastUpdate, int id, int websiteId)
-                    : url(url), status(status), lastUpdate(lastUpdate), id(id), websiteId(websiteId)
-
+LinkEntry::LinkEntry(const std::string& url, const std::string& domain, LinkStatus status, time_t lastUpdate) : url(url), domain(domain), status(status), lastUpdate(lastUpdate)
 {
 
-}
-int LinkEntry::getId() const
-{
-    return this->id;
 }
 
 std::string LinkEntry::getUrl() const
@@ -16,16 +10,27 @@ std::string LinkEntry::getUrl() const
     return this->url;
 }
 
-int LinkEntry::getWebsiteId() const
+std::string LinkEntry::getDomain() const
 {
-    return this->websiteId;
+    return this->domain;
 }
 
 LinkStatus LinkEntry::getStatus() const
 {
     return this->status;
 }
-std::time_t LinkEntry::getLastUpdateTime() const
+
+time_t LinkEntry::getLastUpdateTime() const
 {
     return this->lastUpdate;
+}
+
+void LinkEntry::setStatus(LinkStatus status)
+{
+    this->status = status;
+}
+
+void LinkEntry::updateTime()
+{
+    this->lastUpdate = time(nullptr);
 }

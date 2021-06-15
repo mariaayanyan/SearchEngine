@@ -7,21 +7,19 @@
 
 #include "LinkEntry.h"
 #include "LinkStatus.h"
+#include "../MongoDbHandler/MongoDbHandler.h"
 
 #include <vector>
 
 class LinkRepository
 {
     private:
-        std::vector<LinkEntry> source;
+        MongoDbHandler handler;
     public:
-        std::vector<LinkEntry> getAll() const;
-        std::vector<LinkEntry> getById(int id, LinkStatus status, int count) const;
-        std::vector<LinkEntry> getByUrl(const std::string& url) const;
-
-        /**
-         * Updates source with a new entry
-         */
+        LinkRepository();
+        std::vector<LinkEntry> getAll();
+        std::vector<LinkEntry> getByDomain(const std::string& domain);
+        std::vector<LinkEntry> getByUrl(const std::string& url);
         void save(const LinkEntry& entry);
 };
 
