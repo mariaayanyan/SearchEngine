@@ -26,25 +26,53 @@ LoadResult PageLoader::load(const std::string& url)
 
         std::string* contents = new std::string;
 
+        curl_slist* headers = nullptr;
+        headers = curl_slist_append(headers, "Accept:text/html");
+
         // set options
         curl_easy_setopt(curl, CURLOPT_URL, url.c_str());
         curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, getData);
         curl_easy_setopt(curl, CURLOPT_WRITEDATA, (void*)contents);
         curl_easy_setopt(curl, CURLOPT_FOLLOWLOCATION, 1);
-        curl_easy_setopt(curl, CURLOPT_MAXREDIRS, 3);
+        curl_easy_setopt(curl, CURLOPT_MAXREDIRS, 1);
+        curl_easy_setopt(curl, CURLOPT_HEADER, headers);
 
         // connect to the url and download its' contents
         CURLcode result = curl_easy_perform(curl);
 
         if(result != CURLE_OK)
+        {
+            curl_easy_cleanup(curl);
+            curl_slist_free_all(headers); 
             throw CurlException(curl_easy_strerror(result), result);
+        }
 
         long curlinfoResponseCode;
         curl_easy_getinfo(curl, CURLINFO_RESPONSE_CODE, &curlinfoResponseCode);
 
+        // check if we're really dealing with a url
+        char* contentType = nullptr;
+        curl_easy_getinfo(curl, CURLINFO_CONTENT_TYPE, &contentType);
+
+        if(contentType)
+        {
+            std::string contentTypeString(contentType);
+            if(contentTypeString.find("text/html") == std::string::npos)
+            {
+                curl_easy_cleanup(curl);
+                curl_slist_free_all(headers);
+                throw CurlException("Not a url", -2);
+            }
+        }
+
+        char* effective_url = nullptr;
+        curl_easy_getinfo(curl, CURLINFO_EFFECTIVE_URL, &effective_url);
+        std::string effectiveUrl(effective_url);
+
         curl_easy_cleanup(curl);
-        return LoadResult(std::shared_ptr<std::string>(contents), curlinfoResponseCode);
-    } 
+        curl_slist_free_all(headers);
+        return LoadResult(std::shared_ptr<std::string>(contents), curlinfoResponseCode, effectiveUrl);
+    }
 
     catch(const CurlException& exception)
     {

@@ -17,10 +17,13 @@ private:
      */
     long status;
 
+    std::string effectiveUrl;
+
 public:
-    LoadResult(std::shared_ptr<std::string> body, int status);
+    LoadResult(std::shared_ptr<std::string> body, int status, const std::string& effectiveUrl = "");
     std::shared_ptr<std::string> getBody() const;
     long getStatus() const;
+    std::string getEffectiveUrl() const;
 };
 
 #endif 
