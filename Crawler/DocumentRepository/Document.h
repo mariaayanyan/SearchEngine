@@ -14,7 +14,7 @@ private:
     time_t lastUpdate;
 
 public:
-    Document(const std::string& url, const std::string& title, const std::string& description, const std::string& text, time_t lastUpdate = 0);
+    Document(const std::string& url, const std::string& title, const std::string& description, const std::string& text, time_t lastUpdate = time(nullptr));
 
     std::string getUrl() const;
     std::string getTitle() const;

@@ -15,7 +15,7 @@ class LinkEntry
     
     public:
         LinkEntry() = default;
-        LinkEntry(const std::string& url, const std::string& domain, LinkStatus status, time_t lastUpdate = 0);
+        LinkEntry(const std::string& url, const std::string& domain, LinkStatus status, time_t lastUpdate = time(nullptr));
 
         std::string getUrl() const;
         std::string getDomain() const;

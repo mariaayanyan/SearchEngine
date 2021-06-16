@@ -14,7 +14,7 @@ private:
 
 public:
     Website() = default;
-    Website(const std::string& domain, const std::string& homepage, time_t time = 0);
+    Website(const std::string& domain, const std::string& homepage, time_t time = time(nullptr));
     
     std::string getDomain() const;
     std::string getHomepage() const;
