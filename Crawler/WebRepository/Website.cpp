@@ -19,3 +19,8 @@ std::time_t Website::getLastCrawlTime() const
 {
     return this->lastUpdate;
 }
+
+void Website::updateTime()
+{
+    this->lastUpdate = time(nullptr);
+}

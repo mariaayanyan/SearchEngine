@@ -1,6 +1,8 @@
 
 project(WebRepository)
 
+include("../MongoDbHandler/mongo.config")
+
 add_library(
     WebRepository SHARED
 
@@ -11,4 +13,4 @@ add_library(
     Website.cpp
 )
 
-target_link_libraries(WebRepository)
+target_link_libraries(WebRepository ${MONGO_FLAGS})

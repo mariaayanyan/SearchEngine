@@ -1,5 +1,7 @@
 project(LinkRepository)
 
+include("../MongoDbHandler/mongo.config")
+
 add_library(
     LinkRepository SHARED
 
@@ -12,4 +14,4 @@ add_library(
     LinkStatus.h
 )
 
-target_link_libraries(LinkRepository)
+target_link_libraries(LinkRepository ${MONGO_FLAGS})

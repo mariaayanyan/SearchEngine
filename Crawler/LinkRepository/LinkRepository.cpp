@@ -80,7 +80,7 @@ void LinkRepository::save(const LinkEntry& entry)
         bsoncxx::document::value updateDoc = builder << 
         "$set" << bsoncxx::builder::stream::open_document << "url" << entry.getUrl() << bsoncxx::builder::stream::close_document << 
         "$set" << bsoncxx::builder::stream::open_document << "domain" << entry.getDomain() << bsoncxx::builder::stream::close_document << 
-        "$set" << bsoncxx::builder::stream::open_document << "status" << entry.getStatus() << bsoncxx::builder::stream::close_document << 
+        "$set" << bsoncxx::builder::stream::open_document << "status" << (int)entry.getStatus() << bsoncxx::builder::stream::close_document << 
         "$set" << bsoncxx::builder::stream::open_document << "lastUpdate" << entry.getLastUpdateTime() << bsoncxx::builder::stream::close_document <<         
         bsoncxx::builder::stream::finalize;
 
@@ -94,7 +94,7 @@ void LinkRepository::save(const LinkEntry& entry)
         bsoncxx::document::value insertDoc = builder <<
         "url" << entry.getUrl() << 
         "domain" << entry.getDomain() <<
-        "status" << entry.getStatus() << 
+        "status" << (int)entry.getStatus() << 
         "lastUpdate" << entry.getLastUpdateTime() <<
         bsoncxx::builder::stream::finalize;
 

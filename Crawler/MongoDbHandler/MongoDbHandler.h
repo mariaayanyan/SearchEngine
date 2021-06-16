@@ -3,6 +3,7 @@
 
 #include <string>   
 #include <functional>
+
 #include <bsoncxx/json.hpp>
 #include <bsoncxx/types.hpp>
 #include <mongocxx/client.hpp>
@@ -25,12 +26,7 @@ public:
     mongocxx::collection collection;
     static mongocxx::instance instance;
 
-    MongoDbHandler(const std::string& db, const std::string& collection, const std::string& uri = "mongodb://0.0.0.0:27017") :
-                                uri(mongocxx::uri(uri.c_str())), client(mongocxx::client(this->uri)), 
-                                db(this->client[db]), collection(this->db[collection])
-    {
-
-    }
+    MongoDbHandler(const std::string& db, const std::string& collection, const std::string& uri = "mongodb://0.0.0.0:27017");
 
     template <typename T>
     bool addItemToDb(const T& item, std::function<bsoncxx::document::value(const T&)> function)

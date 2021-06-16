@@ -19,6 +19,8 @@ public:
     std::string getDomain() const;
     std::string getHomepage() const;
     std::time_t getLastCrawlTime() const;
+
+    void updateTime();
 };
 
 #endif

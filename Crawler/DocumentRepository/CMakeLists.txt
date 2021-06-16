@@ -1,5 +1,7 @@
 project(DocumentRepository)
 
+include("../MongoDbHandler/mongo.config")
+
 add_library(
     DocumentRepository SHARED
 
@@ -10,4 +12,4 @@ add_library(
     Document.cpp
 )
 
-target_link_libraries(DocumentRepository)
+target_link_libraries(DocumentRepository ${MONGO_FLAGS})
