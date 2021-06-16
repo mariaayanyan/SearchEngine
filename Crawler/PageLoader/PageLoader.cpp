@@ -79,4 +79,4 @@ LoadResult PageLoader::load(const std::string& url)
         std::string* err = new std::string(exception.getMessage());
         return LoadResult(std::shared_ptr<std::string>(err), exception.getCode());
     }
-}   
+}
