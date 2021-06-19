@@ -2,28 +2,25 @@
 
 HtmlNode::HtmlNode(GumboNode* node) : node(node)
 {
-    GumboVector* gumboChildren = &node->v.element.children;
-
-    for(size_t i = 0; i < gumboChildren->length; ++i)
-        children.push_back(static_cast<GumboNode*>(gumboChildren->data[i]));
+    gumboChildren = &node->v.element.children;
 }
 
 bool HtmlNode::isElement() const
 {
-    return node->type == GUMBO_NODE_ELEMENT; 
+    return this->node->type == GUMBO_NODE_ELEMENT; 
 }
 
 GumboNode* HtmlNode::getNode() const
 {
-    return node;
+    return this->node;
 }
 
 size_t HtmlNode::getChildCount() const
 {
-    return children.size();
+    return this->gumboChildren->length;
 }
 
 GumboNode* HtmlNode::getChild(size_t i) const
 {
-    return children[i];
+    return static_cast<GumboNode*>(this->gumboChildren->data[i]);
 }

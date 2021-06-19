@@ -24,9 +24,15 @@ private:
 public:
     mongocxx::database db;
     mongocxx::collection collection;
-    static mongocxx::instance instance;
+    //static mongocxx::instance instance;
 
-    MongoDbHandler(const std::string& db, const std::string& collection, const std::string& uri = "mongodb://0.0.0.0:27017");
+    MongoDbHandler(const std::string& db, const std::string& collection, const std::string& uri = "mongodb://0.0.0.0:27017") :
+                                uri(mongocxx::uri(uri.c_str())), client(mongocxx::client(this->uri)), 
+                                db(this->client[db]), collection(this->db[collection])
+    {
+
+    }
+
 
     template <typename T>
     bool addItemToDb(const T& item, std::function<bsoncxx::document::value(const T&)> function)
@@ -69,7 +75,5 @@ public:
     }
 
 };  
-
-mongocxx::instance MongoDbHandler::instance{};
 
 #endif

@@ -21,7 +21,7 @@ class HtmlDocument
     public:
         HtmlDocument(const std::string& html);
         
-        bool parse();
+        void parse();
         void visitElements(std::function<void(const HtmlElement&)> visitor) const; 
         
         std::string getHtml() const;

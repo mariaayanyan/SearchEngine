@@ -16,7 +16,7 @@ std::string HtmlDocument::getHtml() const
     return this->html;
 }
 
-bool HtmlDocument::parse()
+void HtmlDocument::parse()
 {
     this->output = gumbo_parse(this->html.c_str());
 }
@@ -24,7 +24,7 @@ bool HtmlDocument::parse()
 void HtmlDocument::visitElements(std::function<void(const HtmlElement&)> visitor) const
 {
     HtmlNode root(this->output->root);
-    visitElement(root, visitor);
+    visitElement(HtmlElement(root.getNode()), visitor);
 }
 
 void HtmlDocument::visitElement(const HtmlNode& node, std::function<void(const HtmlElement&)> visitor) const
@@ -36,7 +36,6 @@ void HtmlDocument::visitElement(const HtmlNode& node, std::function<void(const H
 
     for(size_t i = 0; i < node.getChildCount(); ++i)
     {
-        visitElement(node.getChild(i), visitor);
+        visitElement(HtmlNode(node.getChild(i)), visitor);
     }
-
 }

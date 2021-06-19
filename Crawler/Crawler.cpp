@@ -5,6 +5,7 @@
 #include "HtmlDocument/HtmlDocument.h"
 #include "LinkExtractor/LinkExtractor.h"
 #include "DocumentExtractor/DocumentExtractor.h"
+#include "MongoDbHandler/MongoDbHandler.h"
 
 #include <vector>
 #include <string>
@@ -12,12 +13,16 @@
 
 int main()
 {
+    mongocxx::instance instance{};
+
     WebRepository webrep;
     LinkRepository linkrep;
     DocumentRepository docrep;
     PageLoader loader;
     LinkExtractor linkExtractor;
     DocumentExtractor documentExtractor;
+
+    webrep.save(Website("bbc.com", "https://www.bbc.com"));
 
     std::vector<Website> websites = webrep.getAll();
 

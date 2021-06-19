@@ -46,10 +46,10 @@ std::string HtmlElement::getInnerText() const
 {
    std::string innerText;
 
-    for (GumboNode* child : this->children) 
+    for (size_t i = 0; i < getChildCount(); ++i) 
     {
-        if(child->type == GUMBO_NODE_TEXT)
-            innerText += child->v.text.text; 
+        if(getChild(i)->type == GUMBO_NODE_TEXT)
+            innerText += getChild(i)->v.text.text; 
     }
 
     return innerText;

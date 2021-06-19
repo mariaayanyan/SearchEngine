@@ -3,16 +3,8 @@ cmake_minimum_required(VERSION 3.0)
 project("Crawler")
 
 set(CMAKE_CXX_STANDARD 17)
-include("MongoDbHandler/mongo.config")
 
-include_directories("PageLoader")
-include_directories("HtmlDocument")
-include_directories("LinkExtractor")
-include_directories("LinkRepository")
-include_directories("WebRepository")
-include_directories("DocumentRepository")
-include_directories("DocumentExtractor")
-include_directories("MongoDbHandler")
+include("MongoDbHandler/mongo.config")
 
 add_executable(${PROJECT_NAME} Crawler.cpp)
 
@@ -57,4 +49,4 @@ set_target_properties(DocumentExtractor PROPERTIES
   IMPORTED_LOCATION "${CMAKE_SOURCE_DIR}/DocumentExtractor/libDocumentExtractor.so"
 )
 
-target_link_libraries(${PROJECT_NAME} PageLoader HtmlDocument LinkExtractor MongoDbHandler LinkRepository WebRepository DocumentExtractor DocumentRepository ${MONGO_FLAGS})
+target_link_libraries(${PROJECT_NAME} PageLoader HtmlDocument LinkExtractor MongoDbHandler LinkRepository WebRepository DocumentExtractor DocumentRepository)

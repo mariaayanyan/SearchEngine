@@ -12,7 +12,7 @@ class HtmlNode
 {
     protected:
         GumboNode* node;
-        std::vector<GumboNode*> children;
+        GumboVector* gumboChildren;
     public:
         HtmlNode(GumboNode* node);
         virtual bool isElement() const;
